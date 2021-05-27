@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using Acme.BookStore.Localization;
+﻿using Acme.BookStore.Localization;
 using Acme.BookStore.MultiTenancy;
+using System.Threading.Tasks;
 using Volo.Abp.Identity.Blazor;
 using Volo.Abp.SettingManagement.Blazor.Menus;
 using Volo.Abp.TenantManagement.Blazor.Navigation;
@@ -33,7 +33,7 @@ namespace Acme.BookStore.Blazor.Menus
                     order: 0
                 )
             );
-            
+
             if (MultiTenancyConsts.IsEnabled)
             {
                 administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
@@ -45,6 +45,20 @@ namespace Acme.BookStore.Blazor.Menus
 
             administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
             administration.SetSubItemOrder(SettingManagementMenus.GroupName, 3);
+
+            context.Menu.AddItem(
+    new ApplicationMenuItem(
+        "BooksStore",
+        l["Menu:BookStore"],
+        icon: "fa fa-book"
+    ).AddItem(
+        new ApplicationMenuItem(
+            "BooksStore.Books",
+            l["Menu:Books"],
+            url: "/books"
+        )
+    )
+);
 
             return Task.CompletedTask;
         }
